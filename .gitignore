@@ -1,0 +1,6 @@
+*.iws
+*.ipr
+*.iml
+conf/application.conf
+documentation/
+tmp/

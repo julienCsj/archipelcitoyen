@@ -1,0 +1,25 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Front
+GET     /                                       frontoffice.PublicFront.index
+GET     /ajouter-compte                         frontoffice.PublicFront.ajouterCompte
+POST    /ajouterCompte                          frontoffice.PublicFront.ajouterComptePost
+
+# Backoffice
+GET     /backoffice                             backoffice.Dashboard.index
+GET     /backoffice/connexion                   backoffice.Application.connexion
+
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Route automatique backoffice
+*       /backoffice/{controller}/{action}                  backoffice.{controller}.{action}
+
+GET     /{slug}                                 frontoffice.PagesFronts.index
+

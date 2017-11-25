@@ -1,0 +1,53 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Comptes
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>Archipel Citoyen</a></li>
+        <li><a href="@{backoffice.Comptes.index()}"><i class="fa fa-users"></i>Comptes</a></li>
+        <li class="active"><a href="@{backoffice.Comptes.index()}"><i class="fa fa-list"></i>Liste des comptes</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">${comptes.size()} comptes sur l'application</h3>
+                    <div class="box-tools"></div>
+                </div>
+                <div class="box-body table-responsive no-padding" style="overflow:auto;">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <td>Identité</td>
+                            <td>Email</td>
+                            <td>Groupe</td>
+                            <td>Inscription</td>
+                            <td>Actions</td>
+                        </tr>
+                        </thead>
+                    #{list items:comptes, as:'compte'}
+                        <tr>
+                            <td>${compte.prenom} ${compte.nom}</td>
+                            <td>${compte.email}</td>
+                            <td>${compte.groupe}</td>
+                            <td>${compte.dateCreation?.format("dd/MM/yyyy à HH:mm")}<br><small>${compte.dateCreation?.since()}</small></td>
+                            <td>
+                                <a class="text-danger" href="@{backoffice.Comptes.supprimerCompte(compte.id)}"><i class="fa fa-remove"></i></a>&nbsp;&nbsp;
+                                <a class="text-info" href="@{backoffice.Comptes.promouvoir(compte.id)}"><i class="fa fa-arrow-up"></i></a>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    #{/list}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

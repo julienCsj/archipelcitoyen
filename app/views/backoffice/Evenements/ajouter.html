@@ -1,0 +1,86 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Evénements
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li><a href="@{backoffice.Evenements.index()}"><i class="fa fa-file"></i>Evénements</a></li>
+        <li class="active"><a href="@{backoffice.Evenements.ajouter()}"><i class="fa fa-plus"></i>Création d'un nouvel événement</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Création d'un nouvel événement</h3>
+                    <div class="box-tools pull-right">
+                        <a class="btn btn-warning btn-sm" href="@{backoffice.Evenements.index()}"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Retour</a>
+                    </div>
+                </div>
+
+
+
+                <form class="form-horizontal" action="@{backoffice.Evenements.ajouterPost}" method="post">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="titre" class="col-sm-2 control-label">Titre</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="titre" name="titre" value="${flash.titre}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="description" name="description">${flash.description}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="urlImage" class="col-sm-2 control-label">URL de l'image</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="urlImage" name="urlImage" value="${flash.urlImage}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dateDebut" class="col-sm-2 control-label">Date début</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control datemask" id="dateDebut" name="dateDebut" value="${flash.dateDebut}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFin" class="col-sm-2 control-label">Date fin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control datemask" id="dateFin" name="dateFin" value="${flash.dateFin}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lieu" class="col-sm-2 control-label">Lieu</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="lieu" name="lieu" value="${flash.lieu}">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

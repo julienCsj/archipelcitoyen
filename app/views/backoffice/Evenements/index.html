@@ -1,0 +1,65 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (evenement header) -->
+<section class="content-header">
+    <h1>
+        Evénements
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="@{backoffice.Evenements.index()}"><i class="fa fa-file"></i>Evénements</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Liste des evenements</h3>
+                    <div class="box-tools pull-right">
+                        <a class="btn btn-success btn-sm" href="@{backoffice.Evenements.ajouter}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Ajouter une evenement</a>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                               <th>Titre</th>
+                               <th>Description</th>
+                               <th>Date / lieu</th>
+                               <th>Actions</th>
+                            </tr>
+                        </thead>
+                        </thead>
+                        <tbody>
+                        #{list items:evenements, as:'evenement'}
+                            <tr class="#{if evenement.enAvant}success#{/if}">
+                                <td width="20%">${evenement.titre}</td>
+                                <td>${evenement.description}</td>
+                                <td width="20%">
+                                    Du ${evenement.dateDebut?.format("dd/MM/yyyy HH:mm")} au ${evenement.dateFin?.format("dd/MM/yyyy HH:mm")}<br>
+                                    Lieu : ${evenement.lieu}
+                                </td>
+                                <td width="15%">
+                                    <a class="btn btn-xs btn-info" href="@{backoffice.Evenements.editer(evenement.id)}"><i class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-xs btn-danger" href="@{backoffice.Evenements.supprimer(evenement.id)}"><i class="fa fa-trash"></i></a>
+                                    #{if !evenement.enAvant}<a class="btn btn-xs btn-primary" href="@{backoffice.Evenements.mettreEnAvant(evenement.id)}"><i class="fa fa-check"></i> Mettre en avant</a>#{/if}
+                                    #{else}<a class="btn btn-xs btn-danger" href="@{backoffice.Evenements.enleverMettreEnAvant(evenement.id)}"><i class="fa fa-times"></i> Retirer mise en avant</a>#{/else}
+                                </td>
+                            </tr>
+                        #{/list}
+                        #{else}
+                            <tr><td colspan="4" class="text-center"><span class="text-muted">Aucune evenement n'est éditable</span></td></tr>
+                        #{/else}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

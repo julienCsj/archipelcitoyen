@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Archipel Citoyen #{if titre} | #{get 'titre'/}#{/if}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="@{'public/frontoffice/vendor/bootstrap/css/bootstrap.min.css'}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="@{'public/frontoffice/css/modern-business.css'}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+    #{fragment nom:'FRONTOFFICE_MENU'/}
+
+
+    *{<div class="container">}*
+        *{<a class="navbar-brand" href="index.html">Archipel Citoyen</a>}*
+        *{<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">}*
+            *{<span class="navbar-toggler-icon"></span>}*
+        *{</button>}*
+        *{<div class="collapse navbar-collapse" id="navbarResponsive">}*
+            *{<ul class="navbar-nav ml-auto">}*
+                *{<li class="nav-item">}*
+                    *{<a class="nav-link" href="@{frontoffice.PagesFronts.jeLis()}">Je lis</a>}*
+                *{</li>}*
+                *{<li class="nav-item">}*
+                    *{<a class="nav-link" href="@{frontoffice.PagesFronts.jappuie()}">J'appuis</a>}*
+                *{</li>}*
+                *{<li class="nav-item">}*
+                    *{<a class="nav-link" href="@{frontoffice.PagesFronts.jeparticipe()}">Je participe</a>}*
+                *{</li>}*
+
+                *{<li class="nav-item dropdown">}*
+                    *{<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">}*
+                        *{Portfolio}*
+                    *{</a>}*
+                    *{<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">}*
+                        *{<a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>}*
+                        *{<a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>}*
+                        *{<a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>}*
+                        *{<a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>}*
+                        *{<a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>}*
+                    *{</div>}*
+                *{</li>}*
+            *{</ul>}*
+        *{</div>}*
+    *{</div>}*
+</nav>
+
+#{doLayout /}
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+
+    #{fragment nom:'FRONTOFFICE_FOOTER'/}
+
+
+*{<div class="container">}*
+        *{<p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>}*
+    *{</div>}*
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="@{'public/frontoffice/vendor/jquery/jquery.min.js'}"></script>
+<script src="@{'public/frontoffice/vendor/popper/popper.min.js'}"></script>
+<script src="@{'public/frontoffice/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+
+</body>
+
+</html>
