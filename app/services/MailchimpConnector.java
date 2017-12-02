@@ -2,6 +2,8 @@ package services;
 
 import play.Play;
 import play.libs.WS;
+import sun.security.provider.MD5;
+import utils.StringUtils;
 
 public class MailchimpConnector {
 
@@ -43,5 +45,28 @@ public class MailchimpConnector {
                 .post();
 
         return rep.getStatus() == 200;
+    }
+
+    public boolean isMemberOfList(MailchimpList list, String email) {
+
+        if(email != null && !email.isEmpty()) {
+            email = email.toLowerCase();
+            String emailHash = StringUtils.toMD5(email);
+            if(emailHash != null) {
+                WS.HttpResponse rep = WS.url(BASEURL + "/lists/" + list.listID + "/members/"+emailHash)
+                        .authenticate(USERNAME, PASSWORD)
+                        .get();
+
+
+                if(rep.getStatus() == 404) {
+                    return false;
+                } else {
+                    String repAsStr = rep.getString();
+                    return repAsStr.contains("subscribed");
+                }
+            }
+        }
+
+        return false;
     }
 }

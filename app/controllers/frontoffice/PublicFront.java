@@ -72,12 +72,17 @@ public class PublicFront extends Controller {
             flash.keep();
             index();
         } else {
+
             MailchimpConnector mc = new MailchimpConnector();
-            boolean res = mc.addMember(MailchimpList.ARCHIPEL_CITOYEN, email, nom, prenom);
-            if(res) {
-                flash.success("Votre email ("+email+") a bien été ajouté sur notre liste de contact, merci !");
+            if(!mc.isMemberOfList(MailchimpList.ARCHIPEL_CITOYEN, email)) {
+                boolean res = mc.addMember(MailchimpList.ARCHIPEL_CITOYEN, email, nom, prenom);
+                if(res) {
+                    flash.success("Votre email ("+email+") a bien été ajouté sur notre liste de contact, merci !");
+                } else {
+                    flash.error("Une erreur est survenue lors de l'ajout de votre mail sur notre liste de contact.");
+                }
             } else {
-                flash.error("Une erreur est survenue lors de l'ajout de votre mail sur notre liste de contact.");
+                flash.error("Vous êtes déjà inscrit à notre newsletter !");
             }
 
             index();
