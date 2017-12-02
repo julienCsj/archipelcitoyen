@@ -43,9 +43,7 @@ public class MailchimpConnector {
                 .setHeader("content-type", "application/json")
                 .body(data)
                 .post();
-
-        System.out.println(rep.getString());
-
+        
         return rep.getStatus() == 200;
     }
 
