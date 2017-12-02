@@ -3,8 +3,11 @@ package controllers.frontoffice;
 import models.Compte;
 import models.Evenement;
 import models.SlideAccueil;
+import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.Controller;
+import services.MailchimpConnector;
+import services.MailchimpList;
 
 import javax.xml.bind.ValidationEvent;
 import java.util.List;
@@ -55,6 +58,30 @@ public class PublicFront extends Controller {
         flash.keep();
         index();
 
+    }
+
+    public static void inscriptionNewsletter(String nom, String prenom, String email) {
+
+        if(nom == null || nom.isEmpty()) Validation.addError("nom", "Merci de renseigner votre nom");
+        if(prenom == null || prenom.isEmpty()) Validation.addError("prenom", "Merci de renseigner votre prénom");
+        if(email == null || email.isEmpty()) Validation.addError("email", "Merci de renseigner votre email");
+
+        if(Validation.hasErrors()) {
+            Validation.keep();
+            params.flash();
+            flash.keep();
+            index();
+        } else {
+            MailchimpConnector mc = new MailchimpConnector();
+            boolean res = mc.addMember(MailchimpList.ARCHIPEL_CITOYEN, email, nom, prenom);
+            if(res) {
+                flash.success("Votre email ("+email+") a bien été ajouté sur notre liste de contact, merci !");
+            } else {
+                flash.error("Une erreur est survenue lors de l'ajout de votre mail sur notre liste de contact.");
+            }
+
+            index();
+        }
     }
 
 }

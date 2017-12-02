@@ -69,7 +69,19 @@
 
     <hr>
 
-    #{fragment nom:'FRONTOFFICE_INDEX_CTA'/}
+        <div class="jumbotron" style="padding-top: 10px; padding-bottom:10px;">
+            <h3>Je souhaite être tenu informé !</h3>
+            <p>Vous serez inscrit à notre newsletter.</p>
+            <form class="form" method="post" action="@{frontoffice.PublicFront.inscriptionNewsletter}">
+                <div class="row">
+                    <div class="col-md-3"><input type="text" class="form-control" name="prenom" value="${flash.prenom}" placeholder="Prénom"></div>
+                    <div class="col-md-3"><input type="text" class="form-control" name="nom"    value="${flash.nom}" placeholder="Nom"></div>
+                    <div class="col-md-3"><input type="text" class="form-control" name="email"  value="${flash.email}" placeholder="Email"></div>
+                    <div class="col-md-3"><button type="submit" class="btn btn-block btn-default">Je m'inscris à la newsletter</button></div>
+                </div>
+            </form>
+        </div>
+    *{#{fragment nom:'FRONTOFFICE_INDEX_CTA'/}}*
 
 </div>
 

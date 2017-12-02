@@ -6,6 +6,7 @@
 GET     /                                       frontoffice.PublicFront.index
 GET     /ajouter-compte                         frontoffice.PublicFront.ajouterCompte
 POST    /ajouterCompte                          frontoffice.PublicFront.ajouterComptePost
+POST    /inscription-newsletter                 frontoffice.PublicFront.inscriptionNewsletter
 
 # Backoffice
 GET     /backoffice                             backoffice.Dashboard.index

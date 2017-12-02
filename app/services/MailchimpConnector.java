@@ -1,0 +1,47 @@
+package services;
+
+import play.Play;
+import play.libs.WS;
+
+public class MailchimpConnector {
+
+    private String BASEURL;
+    private String APIKEY;
+    private String USERNAME;
+    private String PASSWORD;
+
+    public MailchimpConnector() {
+        this.BASEURL =  Play.configuration.getProperty("mailchimp.baseurl");
+        this.APIKEY =   Play.configuration.getProperty("mailchimp.apikey");
+        this.USERNAME = Play.configuration.getProperty("mailchimp.username");
+        this.PASSWORD = Play.configuration.getProperty("mailchimp.password");
+    }
+
+    public boolean addMember(MailchimpList list, String email, String nom, String prenom) {
+
+        if(email == null || email.isEmpty()) return false;
+        if(nom == null || nom.isEmpty()) return false;
+        if(prenom == null || prenom.isEmpty()) return false;
+
+        nom = nom.toUpperCase();
+        email = email.toLowerCase();
+
+        String data = "" +
+                "{" +
+                "   \"email_address\":\""+email+"\", " +
+                "   \"status\":\"subscribed\"," +
+                "   \"merge_fields\": {" +
+                "       \"FNAME\": \""+prenom+"\"," +
+                "       \"LNAME\": \""+nom+"\"" +
+                "   }" +
+                "}";
+
+        WS.HttpResponse rep = WS.url(BASEURL + "/lists/" + list.listID + "/members")
+                .authenticate(USERNAME, PASSWORD)
+                .setHeader("content-type", "application/json")
+                .body(data)
+                .post();
+
+        return rep.getStatus() == 200;
+    }
+}
