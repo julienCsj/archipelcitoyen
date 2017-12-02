@@ -44,6 +44,8 @@ public class MailchimpConnector {
                 .body(data)
                 .post();
 
+        System.out.println(rep.getString());
+
         return rep.getStatus() == 200;
     }
 
