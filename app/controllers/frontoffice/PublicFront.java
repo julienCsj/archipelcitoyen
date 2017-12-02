@@ -15,7 +15,7 @@ public class PublicFront extends Controller {
 
         List<SlideAccueil> slides = SlideAccueil.findAll();
         Evenement evenement = Evenement.find("enAvant = true").first();
-        
+
         render(slides, evenement);
     }
 

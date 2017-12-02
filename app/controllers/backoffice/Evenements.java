@@ -22,7 +22,7 @@ public class Evenements extends SecureController {
         render();
     }
 
-    public static void ajouterPost(String urlImage, @Required String titre, String description, @As("dd/MM/yyyy HH:mm") @Required Date dateDebut, @As("dd/MM/yyyy HH:mm") Date dateFin, String lieu) {
+    public static void ajouterPost(String urlImage, @Required String titre, String description, @As("dd/MM/yyyy HH:mm") @Required Date dateDebut, @As("dd/MM/yyyy HH:mm") Date dateFin, String lieu, String lat, String lon) {
 
         if(Validation.hasErrors()) {
             params.flash();
@@ -38,6 +38,8 @@ public class Evenements extends SecureController {
         evenement.dateDebut = dateDebut;
         evenement.dateFin = dateFin;
         evenement.lieu = lieu;
+        evenement.lat = lat;
+        evenement.lon = lon;
         evenement.save();
 
         flash.success("L'évènement est ajouté");
@@ -97,10 +99,12 @@ public class Evenements extends SecureController {
         flash.put("dateFin",   evenement.dateFin != null ? JavaExtensions.format(evenement.dateFin, "dd/MM/yyyy HH:mm") : "");
         flash.put("lieu", evenement.lieu);
         flash.put("id", evenement.id);
+        flash.put("lat", evenement.lat);
+        flash.put("lon", evenement.lon);
         render();
     }
 
-    public static void editerPost(@Required Long id, String urlImage, @Required String titre, String description, @As("dd/MM/yyyy HH:mm") @Required Date dateDebut, @As("dd/MM/yyyy HH:mm") Date dateFin, String lieu) {
+    public static void editerPost(@Required Long id, String urlImage, @Required String titre, String description, @As("dd/MM/yyyy HH:mm") @Required Date dateDebut, @As("dd/MM/yyyy HH:mm") Date dateFin, String lieu, String lat, String lon) {
 
         if(Validation.hasErrors()) {
             params.flash();
@@ -117,6 +121,8 @@ public class Evenements extends SecureController {
             evenement.dateDebut = dateDebut;
             evenement.dateFin = dateFin;
             evenement.lieu = lieu;
+            evenement.lat = lat;
+            evenement.lon = lon;
             evenement.save();
 
             flash.success("L'évenement est ajouté");

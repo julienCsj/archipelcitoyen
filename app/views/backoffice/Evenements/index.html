@@ -43,7 +43,8 @@
                                 <td>${evenement.description}</td>
                                 <td width="20%">
                                     Du ${evenement.dateDebut?.format("dd/MM/yyyy HH:mm")} au ${evenement.dateFin?.format("dd/MM/yyyy HH:mm")}<br>
-                                    Lieu : ${evenement.lieu}
+                                    Lieu : ${evenement.lieu}<br>
+                                    #{if evenement.lat || evenement.lon}${evenement.lat} / ${evenement.lon}#{/if}
                                 </td>
                                 <td width="15%">
                                     <a class="btn btn-xs btn-info" href="@{backoffice.Evenements.editer(evenement.id)}"><i class="fa fa-pencil"></i></a>

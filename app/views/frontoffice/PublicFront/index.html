@@ -56,7 +56,12 @@
 
         </div>
         <div class="col-lg-6 text-center">
-            <img class="img-fluid rounded" src="${evenement.urlImage}" alt="" style="width:700px; max-height: 300px;">
+            #{if evenement.urlImage}
+                <img class="img-fluid rounded" src="${evenement.urlImage}" alt="" style="width:700px; max-height: 300px;">
+            #{/if}
+            #{elseif evenement.lat && evenement.lon}
+                <div id="map" style="width: 100%; height:250px;"></div>
+            #{/elseif}
         </div>
     </div>
     #{/if}
@@ -67,3 +72,26 @@
     #{fragment nom:'FRONTOFFICE_INDEX_CTA'/}
 
 </div>
+
+#{if evenement && evenement.lat && evenement.lon}
+<script>
+    var map;
+    function initMap() {
+
+        var eventMarker = {lat: ${evenement.lat}, lng: ${evenement.lon}};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: eventMarker,
+            zoom: 16
+        });
+
+        var marker = new google.maps.Marker({
+            position: eventMarker,
+            map: map,
+            title: '${evenement.lieu}'
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnJhlCf8LCqikYDgypHvIA4OlwpWbP7go&callback=initMap"
+        async defer></script>
+#{/if}

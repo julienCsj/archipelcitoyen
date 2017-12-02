@@ -29,11 +29,17 @@ public class Evenement extends Model {
     @Column(unique = false, nullable = false)
     public String lieu;
 
-    @Column(unique = false, nullable = false)
+    @Column(unique = false)
     public String urlImage;
 
     @Column
     public Boolean enAvant;
+
+    @Column(unique = false)
+    public String lat;
+
+    @Column(unique = false)
+    public String lon;
 
     public Evenement() {
         this.enAvant = false;
