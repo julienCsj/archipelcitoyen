@@ -3,13 +3,11 @@ package controllers.frontoffice;
 import models.Compte;
 import models.Evenement;
 import models.SlideAccueil;
-import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.Controller;
-import services.MailchimpConnector;
-import services.MailchimpList;
+import services.mailchimp.MailchimpConnector;
+import services.mailchimp.MailchimpList;
 
-import javax.xml.bind.ValidationEvent;
 import java.util.List;
 
 public class PublicFront extends Controller {

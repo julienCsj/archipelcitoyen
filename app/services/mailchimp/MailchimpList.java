@@ -1,4 +1,4 @@
-package services;
+package services.mailchimp;
 
 public enum MailchimpList {
 

@@ -134,6 +134,14 @@
                 </li>
             #{/if}
 
+            #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
+                <li class="#{if request.action.contains("MailingLists")}active#{/if}">
+                    <a href="@{backoffice.MailingLists.index()}">
+                        <i class="fa fa-envelope-o "></i> <span>Mailing Lists</span> <small class="label pull-right bg-green"></small>
+                    </a>
+                </li>
+            #{/if}
+
             </ul>
         </section>
         <!-- /.sidebar -->

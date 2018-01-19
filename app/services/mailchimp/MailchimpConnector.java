@@ -1,8 +1,7 @@
-package services;
+package services.mailchimp;
 
 import play.Play;
 import play.libs.WS;
-import sun.security.provider.MD5;
 import utils.StringUtils;
 
 public class MailchimpConnector {
