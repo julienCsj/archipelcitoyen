@@ -1,0 +1,83 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cercles
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="#"><i class="fa fa-file"></i>Gestion des cercles</a></li>
+        <li class="active"><a href="@{backoffice.Cercles.lireCerclePage()}"><i class="fa fa-plus"></i>Cercle ${cercle.nom}</a></li>
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+        #{include 'backoffice/Cercles/colDroite.html'/}
+        </div>
+
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+            #{include 'backoffice/Cercles/menuCercle.html'/}
+                <div class="tab-content no-padding">
+
+                    <div class="" style="padding : 10px">
+                        Ces fichiers seront mis à disposition sur la page du cercle.
+                    </div>
+
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        <tr class="active">
+                            <th>Nom du fichier</th>
+                            <th>Déposé par</th>
+                            <th>URL</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        #{list items:fichiers, as:'fichier'}
+                        <tr>
+                            <td>${fichier.name}</td>
+                            <td>${fichier?.compte?.prenom} ${fichier?.compte?.nom}</td>
+                            <td><small><a href="${fichier.url}" target="_blank">${fichier.url}</a></small></td>
+                            <td class="text-center"><a class="btn btn-danger btn-xs" href="@{backoffice.Cercles.lireCercleDocumentsSupprimerDoc(cercle.id, fichier.id)}"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        #{/list}
+                        #{else}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">Aucun fichier a disposition pour ce cercle</td>
+                        </tr>
+                        #{/else}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box box-solid">
+                <div class="box-header no-margin with-border">
+                    <h4 class="no-margin"><i class="fa fa-plus"></i>&nbsp;Ajouter un document</h4>
+                </div>
+                <div class="box-body">
+                    <form class="form" method="post" enctype="multipart/form-data" action="@{backoffice.Cercles.lireCercleDocumentsAjouterPost()}">
+                        <input type="hidden" name="idCercle" value="${cercle.id}">
+                        <div class="form-group">
+                            <label for="">Nom du fichier</label>
+                            <input type="text" class="form-control input-lg" name="nom">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Fichier</label>
+                            <input type="file" class="form-control" name="fichier">
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i> Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

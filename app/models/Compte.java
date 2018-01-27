@@ -41,7 +41,14 @@ public class Compte extends Model {
     }
 
     public enum Groupe {
-        ADMINISTRATEUR,
-        MEMBRE;
+        SUPER_ADMINISTRATEUR("SUPER ADMINISTRATEUR"),
+        ADMINISTRATEUR("ADMINISTRATEUR"),
+        MEMBRE("MEMBRE");
+
+        public String traduction;
+
+        Groupe(String traduction) {
+            this.traduction = traduction;
+        }
     }
 }

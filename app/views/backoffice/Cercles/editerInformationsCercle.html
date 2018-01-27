@@ -1,0 +1,126 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cercles
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="#"><i class="fa fa-file"></i>Gestion des cercles</a></li>
+        <li class="active"><a href="@{backoffice.Cercles.lireCerclePage()}"><i class="fa fa-plus"></i>Cercle ${cercle.nom}</a></li>
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+        #{include 'backoffice/Cercles/colDroite.html'/}
+        </div>
+
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+            #{include 'backoffice/Cercles/menuCercle.html'/}
+                <div class="tab-content no-padding">
+                    <div style="padding: 10px;">
+                        <form class="form-horizontal" action="@{backoffice.Cercles.editerInformationsCerclePost()}" enctype="multipart/form-data" method="post">
+                            <input type="hidden" name="id" value="${cercle.id}">
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Nom</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="${cercle.nom}">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Lien Mattermost</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nom" name="lienMattermost" placeholder="Lien de l'espace mattermost" value="${cercle.lienMattermost}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Mailing list</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nom" name="mailingList" placeholder="Adresse de la Mailing List" value="${cercle.mailingList}">
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Mail du coordinateur</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="mailCoordinateur" name="mailCoordinateur" placeholder="Mail coordinateur" value="${cercle.mailCoordinateur}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Téléphone du coordinateur</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="telCoordinateur" name="telCoordinateur" placeholder="Téléphone coordinateur" value="${cercle.telCoordinateur}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Nom du coordinateur</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nomCoordinateur" name="nomCoordinateur" placeholder="Nom coordinateur" value="${cercle.nomCoordinateur}">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="action" class="col-sm-2 control-label">Cercle publié sur la partie publique ?</label>
+                                    <div class="col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="afficherFront" value="true" #{if cercle.afficherFront}checked#{/if}> Le cercle sera visible sur la partie publique, la page de présentation du cercle doit être finalisée
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                *{<div class="form-group">}*
+                                    *{<label for="nom" class="col-sm-2 control-label">Logo du cercle</label>}*
+                                    *{<div class="col-sm-10">}*
+                                        *{<input type="file" class="form-control"  name="logo">}*
+                                        *{#{if cercle.logo}}*
+                                            *{<span class="text-danger">Attention, un fichier est déjà présent, si vous en ajoutez un nouveau, l'actuel sera remplacé. &nbsp;<a href="${cercle.logo.url}" target="_blank"><i class="fa fa-external-link"></i> Voir</a></span>}*
+                                        *{#{/if}}*
+                                    *{</div>}*
+                                *{</div>}*
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Pictogramme page accueil</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="" name="pictogramme" placeholder="" value="${cercle.pictogramme}">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="nom" class="col-sm-2 control-label">Image de couverture</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" class="form-control"  name="couverture">
+                                    #{if cercle.couverture}
+                                        <span class="text-danger">Attention, un fichier est déjà présent, si vous en ajoutez un nouveau, l'actuel sera remplacé. &nbsp;<a href="${cercle.couverture.url}" target="_blank"><i class="fa fa-external-link"></i> Voir</a></span>
+                                    #{/if}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">Modifier</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

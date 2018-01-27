@@ -2,7 +2,9 @@ package controllers.backoffice;
 
 import models.Compte;
 import org.apache.commons.codec.digest.DigestUtils;
+import services.aws.S3FileUploadService;
 
+import java.io.File;
 import java.util.Date;
 
 /**

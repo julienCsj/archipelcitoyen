@@ -34,9 +34,22 @@ public class Comptes extends SecureController {
 
     public static void promouvoir(Long id) {
         Compte compte = Compte.find("id = ?", id).first();
-        compte.groupe = Compte.Groupe.ADMINISTRATEUR;
+
+        switch (compte.groupe) {
+
+            case SUPER_ADMINISTRATEUR:
+                compte.groupe = Compte.Groupe.SUPER_ADMINISTRATEUR;
+                break;
+            case ADMINISTRATEUR:
+                compte.groupe = Compte.Groupe.SUPER_ADMINISTRATEUR;
+                break;
+            case MEMBRE:
+                compte.groupe = Compte.Groupe.ADMINISTRATEUR;
+                break;
+        }
+
         compte.save();
-        flash.success("Le compte est ADMINISTRATEUR");
+        flash.success("Le compte est promu");
         index();
     }
 }

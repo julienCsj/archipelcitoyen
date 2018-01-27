@@ -1,0 +1,46 @@
+#{extends 'frontoffice/basePageFrontoffice.html'/}
+
+
+<div style="height:400px; background-image: url('https://s3.eu-west-3.amazonaws.com/archipel-citoyen/STATIQUE/ban_pressbook.png'); background-position: center center">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-1 hidden-xs"></div>
+            <div class="col-xs-12 col-sm-8">
+                <br>
+                <br>
+                <h1 class="text-bold"  style=" font-weight: bolder; font-size: 36px; color: white !important;"> La presse en parle </h1>
+                <div class="lead"  style="font-size: 24px; color: white !important;;">
+                    <p>Découvrez toutes les parutions presse et<br> médias de L'Archipel Citoyen</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+
+<div class="container" style="padding-top:40px; padding-bottom: 40px;">
+
+    #{list items:pressBooks, as:'pressbook'}
+    <div class="row">
+        <div class="col-md-2">
+            <img src="${pressbook.logo?.url}">
+        </div>
+        <div class="col-md-7">
+            <h4>${pressbook.titre}</h4>
+            <p>${pressbook.description}</p>
+            #{if pressbook.datePublication}<p class="text-muted"><small>Article publié le ${pressbook.datePublication.format("dd MMMM yyyy")}</small></p>#{/if}
+        </div>
+        <div class="col-md-3">
+            #{if pressbook.lienArticle}<a href="${pressbook.lienArticle}">Voir l'article en ligne</a>#{/if}
+            #{if pressbook.fichierArticle}<br><a href="${pressbook.fichierArticle.url}">Voir l'article </a>#{/if}
+        </div>
+    </div>
+
+        #{if !pressbook_isLast}
+            <hr>
+        #{/if}
+    #{/list}
+</div>

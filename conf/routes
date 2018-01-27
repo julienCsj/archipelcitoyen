@@ -3,10 +3,13 @@
 # ~~~~
 
 # Front
-GET     /                                       frontoffice.PublicFront.index
-GET     /ajouter-compte                         frontoffice.PublicFront.ajouterCompte
-POST    /ajouterCompte                          frontoffice.PublicFront.ajouterComptePost
-POST    /inscription-newsletter                 frontoffice.PublicFront.inscriptionNewsletter
+GET     /                                           frontoffice.PublicFront.index
+GET     /ajouter-compte                             frontoffice.PublicFront.ajouterCompte
+POST    /ajouterCompte                              frontoffice.PublicFront.ajouterComptePost
+POST    /inscription-newsletter                     frontoffice.PublicFront.inscriptionNewsletter
+GET     /pressbook                                  frontoffice.PublicFront.pressbook
+GET     /cercles/{slug}                              frontoffice.PublicFront.afficherCercle
+GET     /cercles/{slugCercle}/article/{slugArticle}  frontoffice.PublicFront.afficherArticle
 
 # Backoffice
 GET     /backoffice                             backoffice.Dashboard.index
@@ -21,6 +24,7 @@ GET     /public/                                staticDir:public
 
 # Route automatique backoffice
 *       /backoffice/{controller}/{action}                  backoffice.{controller}.{action}
+*       /backoffice/{controller}/{action}/{id}             backoffice.{controller}.{action}
 
 GET     /{slug}                                 frontoffice.PagesFronts.index
 

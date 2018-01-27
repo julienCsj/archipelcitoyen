@@ -1,0 +1,115 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cercles
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="#"><i class="fa fa-file"></i>Gestion des cercles</a></li>
+        <li class="active"><a href="@{backoffice.Cercles.lireCerclePage()}"><i class="fa fa-plus"></i>Cercle ${cercle.nom}</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            #{include 'backoffice/Cercles/colDroite.html'/}
+        </div>
+
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+            #{include 'backoffice/Cercles/menuCercle.html'/}
+                <div class="tab-content">
+                    <form class="form-horizontal" action="@{backoffice.Cercles.lireCercleArticlesEditerArticlePost()}" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="idCercle" value="${cercle.id}">
+                        <input type="hidden" name="idArticle" value="${article.id}">
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="nom" class="col-sm-2 control-label">Titre de l'article</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="titre" placeholder="Titre" value="${article.titre}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nom" class="col-sm-2 control-label">Courte introduction</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="introduction" placeholder="Introduction" value="${article.introduction}">
+                                    <span class="help-text">Permet de présenter l'article sur la page d'accueil du site</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nom" class="col-sm-2 control-label">Image de couverture</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" name="couverture">
+                                    #{if article.couverture}<span class="text-danger">Attention, un fichier est déjà présent, si vous en ajoutez un nouveau, l'actuel sera remplacé. &nbsp;<a href="${article.couverture.url}" target="_blank"><i class="fa fa-external-link"></i> Voir</a></span>#{/if}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="action" class="col-sm-2 control-label">Article publié sur la patie publique ?</label>
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="afficherFront" value="true" #{if article.afficherFront}checked#{/if}>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nom" class="col-sm-12">Contenu de l'article :</label>
+                                <div class="col-sm-12">
+                                    <textarea class="form-control summernote-lg" name="contenu" style="width:100%;">${article.contenu}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="well">
+                                <h4><i class="fa fa-file"></i> Pièces jointes :</h4>
+                                <ul>
+                                    #{list items:piecesJointes, as:'pj'}
+                                        <li><a href="${pj.url}" target="_blank">${pj.name}</a></li>
+                                    #{/list}
+                                    #{else}
+                                        <p>Pas de pièces jointes sur cet article</p>
+                                    #{/else}
+                                </ul>
+                                <hr>
+
+                                <h4><i class="fa fa-plus"></i> Ajouter une pièce jointe</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Nom du fichier</label>
+                                            <input type="text" class="form-control" name="nom">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="">Fichier</label>
+                                            <input type="file" class="form-control" name="fichier">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success pull-right">Modifier</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

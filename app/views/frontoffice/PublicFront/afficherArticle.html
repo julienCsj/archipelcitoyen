@@ -1,0 +1,59 @@
+#{extends 'frontoffice/basePageFrontoffice.html'/}
+
+<div style="height:450px; #{if article.couverture}background-image: url('${article.couverture?.url}'); background-position: center center; -webkit-background-size: cover;background-size: cover;#{/if}#{else}background-color:#f36e21;#{/else}">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <br>
+                <h1 class="text-bold"  style=" font-weight: bolder; font-size: 36px; color: white !important;">${article.titre} </h1>
+                <div class="lead"  style="font-size: 24px; color: white !important;;">
+                    <p>${article.introduction}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+
+<div class="container" style="padding-top:40px;">
+    <div class="row" style="margin-top:30px; margin-bottom:30px;">
+        <div class="col-md-8">
+            ${article.contenu.raw()}
+
+
+            #{if fichiers}
+                <h4>Fichiers en pièce jointe de l'article</h4>
+                <ul>
+                #{list items:fichiers, as:'fichier'}
+                    <li><a target="_blank" href="${fichier.url}">${fichier.name}</a></li>
+                #{/list}
+                </ul>
+            #{/if}
+
+
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="margin-bottom: 30px;">
+                <h5 class="card-header">Publié par</h5>
+                <div class="card-body">
+                    <strong>${article.cercle.nom}</strong> le ${article.dateCreation.format("dd MMMM yyyy")}
+                </div>
+            </div>
+
+            #{if cercle.lienMattermost}
+            <div class="card">
+                <h5 class="card-header">Nous rejoindre sur Mattermost</h5>
+                <div class="card-body">
+                    <img class="img-responsive center-block" src="https://www.mattermost.org/wp-content/uploads/2016/03/logoHorizontal.png" alt="" style="width:250px;">
+                    <p><br></p>
+                    <strong><i class="fa fa-users margin-r-5"></i> Lien mattermost</strong><br>
+                    <a href="${cercle.lienMattermost}" target="_blank"><i class="fa fa-external-link"></i> Ouvrir mattermost</a>
+                </div>
+            </div>
+            #{/if}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        <div class="text-center">
+            <img class="profile-user-img img-responsive img-circle center-block" src="${cercle?.logo?.url}" alt="">
+        </div>
+
+        <h3 class="profile-username text-center">CERCLE ${cercle.nom.toUpperCase()}</h3>
+
+        *{<ul class="list-group list-group-unbordered">}*
+            *{<li class="list-group-item">}*
+                *{<b>Nombre de membres</b> <a class="pull-right">1,322</a>}*
+            *{</li>}*
+            *{<li class="list-group-item">}*
+                *{<b>Nombre d'articles</b> <a class="pull-right">543</a>}*
+            *{</li>}*
+            *{<li class="list-group-item">}*
+                *{<b>Nombre de commentaires</b> <a class="pull-right">13,287</a>}*
+            *{</li>}*
+        *{</ul>}*
+
+        <a href="@{backoffice.Cercles.editerInformationsCercle(cercle.id)}" class="btn btn-primary btn-block"><b>Editer les informations du cercle</b></a>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+
+#{if cercle.mailCoordinateur}
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Coordinateur <i class="fa fa-check text-success"></i></h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <strong><i class="fa fa-user margin-r-5"></i> Identité</strong>
+        <p class="text-muted">${cercle.nomCoordinateur}</p>
+        <strong><i class="fa fa-envelope-o margin-r-5"></i> Mail</strong>
+        <p class="text-muted">${cercle.mailCoordinateur}</p>
+        <strong><i class="fa fa-phone margin-r-5"></i> Téléphone</strong>
+        <p class="text-muted">${cercle.telCoordinateur}</p>
+    </div>
+</div>
+#{/if}
+
+#{if cercle.lienMattermost}
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Mattermost <i class="fa fa-check text-success"></i></h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="-ms-text-overflow: ellipsis; text-overflow: ellipsis;">
+        <img class="profile-user-img img-responsive center-block" src="https://www.mattermost.org/wp-content/uploads/2016/03/logoHorizontal.png" alt="">
+        <br>
+        <strong><i class="fa fa-users margin-r-5"></i> Lien mattermost</strong><br>
+        <a href="${cercle.lienMattermost}" target="_blank"><i class="fa fa-external-link"></i> Ouvrir mattermost</a>
+    </div>
+</div>
+#{/if}
+
+<div class="box #{if cercle.afficherFront}box-success#{/if}#{else}box-danger#{/else}">
+    <div class="box-header with-border">
+        <h3 class="box-title">Affichage public #{if cercle.afficherFront}<i class="fa fa-check text-success"></i>#{/if}#{else}<i class="fa fa-times text-danger"></i>#{/else}</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body text-center">
+        #{if cercle.afficherFront}
+            <p>La page du cercle est visible sur la partie publique.<br>
+                <a class="btn btn-danger" href="@{backoffice.Cercles.toogleAffichageFront(cercle.id)}"><i class="fa fa-eye-slash"></i>&nbsp;Cacher la page</a></p>
+        #{/if}
+        #{else}
+            <p>La page du cercle n'est pas visible sur la partie publique. Attention, les internautes auront accès aux fichiers attachés et aux articles !<br></p>
+            <a class="btn btn-success" href="@{backoffice.Cercles.toogleAffichageFront(cercle.id)}"><i class="fa fa-eye"></i>&nbsp;Afficher la page</a>
+        #{/else}
+    </div>
+</div>

@@ -1,23 +1,28 @@
 package controllers.frontoffice;
 
-import models.Compte;
-import models.Evenement;
-import models.SlideAccueil;
+import models.*;
 import play.data.validation.Validation;
 import play.mvc.Controller;
 import services.mailchimp.MailchimpConnector;
 import services.mailchimp.MailchimpList;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-public class PublicFront extends Controller {
+public class PublicFront extends FrontController {
 
     public static void index() {
 
         List<SlideAccueil> slides = SlideAccueil.findAll();
         Evenement evenement = Evenement.find("enAvant = true").first();
+        List<Slogan> slogans = Slogan.findAll();
+        List<Cercle> cercles = Cercle.find("afficherFront = true").fetch();
+        List<Article> articles = Article.find("afficherFront = true order by dateCreation DESC").fetch();
+        Collections.shuffle(slogans);
+        Collections.shuffle(cercles);
 
-        render(slides, evenement);
+        render(slides, evenement, slogans, cercles, articles);
     }
 
     public static void ajouterCompte() {
@@ -85,6 +90,30 @@ public class PublicFront extends Controller {
 
             index();
         }
+    }
+
+    public static void pressbook() {
+        List<PressBook> pressBooks = PressBook.find("order by datePublication desc").fetch();
+        render(pressBooks);
+    }
+
+    public static void afficherCercle(String slug) {
+        notFoundIfNull(slug);
+        Cercle cercle = Cercle.find("slug = ?", slug).first();
+        List<Article> articles = Article.find("cercle = ? order by dateCreation DESC", cercle).fetch();
+        List<Fichier> fichiers = Fichier.find("cercle = ?", cercle).fetch();
+        render(cercle, articles, fichiers);
+
+    }
+
+    public static void afficherArticle(String slugCercle, String slugArticle) {
+        notFoundIfNull(slugCercle);
+        notFoundIfNull(slugArticle);
+        Cercle cercle = Cercle.find("slug = ?", slugCercle).first();
+        Article article = Article.find("slug = ?", slugArticle).first();
+
+        render(cercle, article);
+
     }
 
 }

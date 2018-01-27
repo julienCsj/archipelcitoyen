@@ -46,6 +46,19 @@ public class OVHConnector {
         return redirections;
     }
 
+    public static List<RedirectionMail> getRedirections(String mailingList) {
+        List<RedirectionMail> redirections = getRedirections();
+        List<RedirectionMail> redirectionsMailingList = new ArrayList<>();
+
+        for (RedirectionMail redirection : redirections) {
+            if(redirection.from.equals(mailingList)) {
+                redirectionsMailingList.add(redirection);
+            }
+        }
+
+        return redirectionsMailingList;
+    }
+
     public static boolean createNewRedirection(String from, String to) {
         try {
             OvhApi api = new OvhApi(endpoint, appKey, appSecret, consumerKey);
@@ -74,4 +87,6 @@ public class OVHConnector {
             return false;
         }
     }
+
+
 }

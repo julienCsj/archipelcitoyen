@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="nav nav-tabs hidden-xs" style="">
+            <li #{if request.action.contains("Cercles.lireCerclePage")}class="active"#{/if}><a href="@{backoffice.Cercles.lireCerclePage(cercle.id)}">Page du cercle</a></li>
+            <li #{if request.action.contains("Cercles.lireCercleMailingLists")}class="active"#{/if}><a href="@{backoffice.Cercles.lireCercleMailingLists(cercle.id)}">Mailing list</a></li>
+            <li #{if request.action.contains("Cercles.lireCercleArticles")}class="active"#{/if}><a href="@{backoffice.Cercles.lireCercleArticles(cercle.id)}">Articles <span class="badge badge-default">${nbArticles}</span></a></li>
+            <li #{if request.action.contains("Cercles.lireCercleDocuments")}class="active"#{/if}><a href="@{backoffice.Cercles.lireCercleDocuments(cercle.id)}">Documents attachés <span class="badge badge-default">${nbDocuments}</span></a></li>
+        </ul>
+    </div>
+</div>

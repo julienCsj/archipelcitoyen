@@ -1,14 +1,23 @@
 package controllers.backoffice;
 
+import models.Cercle;
 import models.Compte;
 import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
 
+import java.util.List;
+
 /**
  * Created by juliencustoja on 21/09/2016.
  */
 public class SecureController extends Controller {
+
+    @Before
+    public void injectData() {
+        List<Cercle> cercles = Cercle.findAll();
+        renderArgs.put("cercles", cercles);
+    }
 
     @Before
     public void checkConnexion() {

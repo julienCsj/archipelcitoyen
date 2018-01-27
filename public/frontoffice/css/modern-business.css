@@ -15,7 +15,7 @@ body {
 }
 
 .carousel-item {
-    height: 50vh;
+    height: 400px;
     min-height: 300px;
     background: no-repeat center center scroll;
     -webkit-background-size: cover;
@@ -26,4 +26,14 @@ body {
 
 .portfolio-item {
     margin-bottom: 30px;
+}
+
+footer {
+    height:auto; width:100%;
+    display: inline-block;
+}
+
+footer > container{
+    padding-top:20px;
+    padding-bottom:20px;
 }

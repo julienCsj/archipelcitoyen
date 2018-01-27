@@ -1,0 +1,95 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cercles
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="#"><i class="fa fa-file"></i>Gestion des cercles</a></li>
+        <li class="active"><a href="@{backoffice.Cercles.lireCerclePage()}"><i class="fa fa-plus"></i>Cercle ${cercle.nom}</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            #{include 'backoffice/Cercles/colDroite.html'/}
+        </div>
+
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                #{include 'backoffice/Cercles/menuCercle.html'/}
+                <div class="tab-content #{if redirections && !redirections.isEmpty()}no-padding#{/if}">
+                    #{if redirections && !redirections.isEmpty()}
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                #{list items:redirections, as:'redirection'}
+                                    <tr>
+                                        <td>${redirection.from}</td>
+                                        <td>${redirection.to}</td>
+                                        <td>
+                                            <a class="btn btn-xs btn-danger" href="@{backoffice.Cercles.lireCercleMailingListsSupprimerRedirection(cercle.id, redirection.id)}"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                #{/list}
+                            </tbody>
+                        </table>
+                    #{/if}
+                    #{else}
+                        <div class="callout callout-danger">
+                            <h4>Pas de mailing list pour le cercle</h4>
+                            <p>Aucune mailing list n'est configurée pour ce cercle. Une fois la mailing list créee, il faudra quelques minutes pour qu'elle soit opérationnelle.</p>
+                        </div>
+
+                        <form class="form-horizontal" method="post" action="@{backoffice.Cercles.lireCercleMailingListsInitPost()}">
+                            <input type="hidden" name="id" value="${cercle.id}">
+                            <div class="form-group">
+                                <label for="nom" class="col-sm-4 control-label">Adresse email de la mailing list</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="nom" name="mailingList" placeholder="" value="">
+                                </div>
+                                <label for="nom" class="col-sm-4 text-left" style="padding-left:0px; padding-top:5px;">@larchipelcitoyen.org</label>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success">Créer la mailing list</button>
+                            </div>
+                        </form>
+                    <div class="clearfix"></div>
+                    #{/else}
+                </div>
+            </div>
+
+            #{if redirections && !redirections.isEmpty()}
+                <div class="box box-solid">
+                    <div class="box-header no-margin with-border">
+                        <h4 class="no-margin"><i class="fa fa-plus"></i>&nbsp;Ajouter des mails sur la mailing list <strong>${cercle.mailingList}</strong></h4>
+                    </div>
+                    <div class="box-body">
+                        <form class="form" method="post" action="@{backoffice.Cercles.lireCercleMailingListsAjouterPost()}">
+                            <input type="hidden" name="idCercle" value="${cercle.id}">
+                            <div class="form-group">
+                                <label for="">Emails</label>
+                                <textarea class="form-control" name="emails"></textarea>
+                                <div class="help-text">Vous pouvez copier/coller du texte, les adresses emails seront automatiquement récupérées.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+            #{/if}
+        </div>
+    </div>
+</section>

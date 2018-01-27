@@ -1,0 +1,93 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Slider
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li><a href="@{backoffice.Pressbooks.index()}"><i class="fa fa-file"></i>Pressbook</a></li>
+        <li class="active"><a href="@{backoffice.Pressbooks.ajouter()}"><i class="fa fa-plus"></i>Edition d'un article de presse</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Edition d'un article de presse</h3>
+                    <div class="box-tools pull-right">
+                        <a class="btn btn-warning btn-sm" href="@{backoffice.Pressbooks.index()}"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Retour</a>
+                    </div>
+                </div>
+                <form class="form-horizontal" action="@{backoffice.Pressbooks.editerPost}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="${pressbook.id}">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="titre" class="col-sm-2 control-label">Titre</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="titre" name="titre" value="${pressbook.titre}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titre" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="description" name="description" value="${pressbook.description}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dateFin" class="col-sm-2 control-label">Date de la publication</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control datemask" id="datePublication" name="datePublication" value="${pressbook.datePublication?.format("dd/MM/yyyy HH:mm")}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom" class="col-sm-2 control-label">Logo du média</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control"  name="logo">
+                            #{if pressbook.logo}
+                                <span class="text-danger">Attention, un fichier est déjà présent, si vous en ajoutez un nouveau, l'actuel sera remplacé. &nbsp;<a href="${pressbook.logo.url}" target="_blank"><i class="fa fa-external-link"></i> Voir</a></span>
+                            #{/if}
+                            </div>
+                        </div>
+
+                        <hr>
+
+
+                        <div class="form-group">
+                            <label for="nom" class="col-sm-2 control-label">Article</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control"  name="fichierArticle">
+                            #{if pressbook.fichierArticle}
+                                <span class="text-danger">Attention, un fichier est déjà présent, si vous en ajoutez un nouveau, l'actuel sera remplacé. &nbsp;<a href="${pressbook.fichierArticle.url}" target="_blank"><i class="fa fa-external-link"></i> Voir</a></span>
+                            #{/if}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Lien de l'article</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="description" name="lienArticle">${pressbook.lienArticle}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right">Modifier</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

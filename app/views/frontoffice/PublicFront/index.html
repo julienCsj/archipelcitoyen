@@ -66,10 +66,101 @@
     </div>
 #{/ifErrors}
 
+    <h1 class="my-4">L'Archipel Citoyen <small class="text-muted">Osons <span class="type-text"></span></small></h1>
     #{fragment nom:'FRONTOFFICE_INDEX_PAGE'/}
+</div>
 
-        <!-- Features Section -->
+
+#{if cercles}
+<div style="height:250px; background-image: url('https://s3.eu-west-3.amazonaws.com/archipel-citoyen/STATIQUE/cercles.png'); background-position: center center; -webkit-background-size: cover;background-size: cover;">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-7 hidden-xs hidden-sm"></div>
+            <div class="col-xs-12 col-sm-12 col-md-5">
+                <br>
+                <h1 class="text-bold"  style=" font-weight: bolder; font-size: 36px; color: white !important;"> Les cercles de travail </h1>
+                <div class="lead"  style="font-size: 24px; color: white !important;;">
+                    <p>Découvrez les travaux menés par les cercles de l'Archipel Citoyen</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+#{/if}
+
+<div class="container" style="padding-top:40px;">
+    #{if cercles}
+    <div class="row">
+        #{list items:cercles, as:'cercle'}
+        <div class="col-xs-12 col-sm-12 col-md-4 text-center center-block" style="margin-bottom: 20px;">
+            <a href="@{frontoffice.PublicFront.afficherCercle(cercle.slug)}">
+                <i style="color:grey;" class="fa #{if cercle.pictogramme}${cercle.pictogramme}#{/if}#{else}fa-circle-o-notch fa-rotate-${(90*cercle_index) % 360}#{/else} fa-4x fa-border" aria-hidden="true"></i><br>
+            *{#{if cercle.logo}<img src="${cercle.logo.url}" class="img-responsive" style="margin-bottom:20px;">#{/if}}*
+                *{#{else}<div style="width:128px; height:128px; background-color:#727b84; margin-right:auto; margin-left:auto; margin-top:auto; color:white;">${cercle.nom}</div>#{/else}}*
+            </a>
+
+            <a style="color: inherit;" href="@{frontoffice.PublicFront.afficherCercle(cercle.slug)}"><h4>${cercle.nom}</h4></a>
+            <p class="text-muted">
+                ${cercle.description}
+            </p>
+        </div>
+        #{/list}
+    </div>
+    #{/if}
+</div>
+
+#{if articles}
+<div style="height:250px; background-image: url('https://s3.eu-west-3.amazonaws.com/archipel-citoyen/STATIQUE/production.png'); background-position: center center; -webkit-background-size: cover;background-size: cover;">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 text-left">
+                <br>
+                <h1 class="text-bold"  style=" font-weight: bolder; font-size: 36px; color: black !important;"> Nos productions </h1>
+                <div class="lead"  style="font-size: 24px; color: black !important;;">
+                    <p>Découvrez les productions des cercles de l'Archipel Citoyen</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+#{/if}
+
+<div class="container" style="padding-top:40px;">
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-8">
+            #{if articles}
+            <h3>Nos dernières publications</h3>
+            <div class="row">
+                #{list items:articles, as:'article'}
+                <div class="col-xs-12 col-sm-12 col-md-6" style="line-height: 18px;">
+                    <p style="border-top:1px solid black;" class="text-justify">
+                        <a href="@{frontoffice.PublicFront.afficherCercle(article.cercle.slug)}"><span class="text-info">${article?.cercle?.nom}</span></a><br>
+                        <a href="@{frontoffice.PublicFront.afficherArticle(article.cercle.slug, article.slug)}"><strong>${article.titre}</strong></a><br>
+                        <span class="text-muted text-justify">${article.introduction}</span>
+                    </p>
+                </div>
+                #{/list}
+            </div>
+            #{/if}
+        </div>
+        <div class="col-md-4">
+            #{fragment nom:'CALENDRIER'/}
+        </div>
+    </div>
+</div>
+
+
+<div class="container" style="margin-top:30px;">
     #{if evenement}
+    <hr>
     <div class="row">
         <div class="col-lg-6">
             <h2>Prochain événement</h2>
@@ -92,23 +183,19 @@
     </div>
     <hr>
     #{/if}
-    <!-- /.row -->
 
-
-        <div class="jumbotron" style="padding-top: 10px; padding-bottom:10px;">
-            <h3>Je souhaite être tenu informé !</h3>
-            <p>Vous serez inscrit à notre newsletter.</p>
-            <form class="form" method="post" action="@{frontoffice.PublicFront.inscriptionNewsletter}">
-                <div class="row">
-                    <div class="col-md-3"><input type="text" class="form-control" name="prenom" value="${flash.prenom}" placeholder="Prénom"></div>
-                    <div class="col-md-3"><input type="text" class="form-control" name="nom"    value="${flash.nom}" placeholder="Nom"></div>
-                    <div class="col-md-3"><input type="text" class="form-control" name="email"  value="${flash.email}" placeholder="Email"></div>
-                    <div class="col-md-3"><button type="submit" class="btn btn-block btn-default">Je m'inscris à la newsletter</button></div>
-                </div>
-            </form>
-        </div>
-    *{#{fragment nom:'FRONTOFFICE_INDEX_CTA'/}}*
-
+    <div class="jumbotron" style="padding-top: 10px; padding-bottom:10px;">
+        <h3>Je souhaite être tenu informé !</h3>
+        <p>Vous serez inscrit à notre newsletter.</p>
+        <form class="form" method="post" action="@{frontoffice.PublicFront.inscriptionNewsletter}">
+            <div class="row">
+                <div class="col-md-3"><input type="text" class="form-control" name="prenom" value="${flash.prenom}" placeholder="Prénom"></div>
+                <div class="col-md-3"><input type="text" class="form-control" name="nom"    value="${flash.nom}" placeholder="Nom"></div>
+                <div class="col-md-3"><input type="text" class="form-control" name="email"  value="${flash.email}" placeholder="Email"></div>
+                <div class="col-md-3"><button type="submit" class="btn btn-block btn-default">Je m'inscris à la newsletter</button></div>
+            </div>
+        </form>
+    </div>
 </div>
 
 #{if evenement && evenement.lat && evenement.lon}

@@ -65,7 +65,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel" style="height: 30px;">
                 <div class="pull-left info">
-                    <p><strong>${compteConnecte.prenom}</strong> <small>${compteConnecte.groupe.toString().toLowerCase().capitalize()}</small></p>
+                    <p><strong>${compteConnecte.prenom}</strong> <small>${compteConnecte.groupe.traduction}</small></p>
                     <p><br><br></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
@@ -92,56 +92,77 @@
                     </a>
                 </li>
 
-                <li class="header">PARTIE PRIV&Eacute;E</li>
-                #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
+                #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR) || compteConnecte.groupe.equals(models.Compte.Groupe.SUPER_ADMINISTRATEUR)}
+                    <li class="header">PARTIE PRIV&Eacute;E</li>
+                    <li class="treeview #{if request.action.contains("CMS") || request.action.contains("Fragments")}active#{/if}">
+                        <a href="#">
+                            <i class="fa fa-file"></i>
+                            <span>CMS</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@{backoffice.CMS.index()}"><i class="fa fa-circle-o"></i> Pages éditables</a></li>
+                            <li><a href="@{backoffice.Fragments.index()}"><i class="fa fa-circle-o"></i> Fragments</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="#{if request.action.contains("Sliders")}active#{/if}">
+                        <a href="@{backoffice.Sliders.index()}">
+                            <i class="fa fa-picture-o"></i> <span>Slider accueil</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
+                    <li class="#{if request.action.contains("Evenements")}active#{/if}">
+                        <a href="@{backoffice.Evenements.index()}">
+                            <i class="fa fa-calendar-o"></i> <span>Evénements</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
+                    <li class="#{if request.action.contains("Pressbooks")}active#{/if}">
+                        <a href="@{backoffice.Pressbooks.index()}">
+                            <i class="fa fa-newspaper-o"></i> <span>Pressbook</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
+                    <li class="#{if request.action.contains("Slogans")}active#{/if}">
+                        <a href="@{backoffice.Slogans.index()}">
+                            <i class="fa fa-comments"></i> <span>Slogans</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
+                    <li class="treeview #{if request.action.contains("Cercles")}active#{/if}">
+                        <a href="#">
+                            <i class="fa fa-circle"></i>
+                            <span>Cercles</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            #{list items:cercles, as:'crcl'}
+                                <li><a href="@{backoffice.Cercles.lireCerclePage(crcl.id)}"><i class="fa fa-circle-o"></i> ${crcl.nom}</a></li>
+                            #{/list}
+                            <li><a href="@{backoffice.Cercles.creerCercle()}"><i class="fa fa-plus"></i> Créer un cercle</a></li>
+                        </ul>
+                    </li>
+                #{/if}
+
+                #{if compteConnecte.groupe.equals(models.Compte.Groupe.SUPER_ADMINISTRATEUR)}
+                    <li class="header">SUPER ADMINISTRATEUR</li>
+                    <li class="#{if request.action.contains("MailingLists")}active#{/if}">
+                        <a href="@{backoffice.MailingLists.index()}">
+                            <i class="fa fa-envelope-o "></i> <span>Mailing Lists</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
                     <li class="#{if request.action.contains("Comptes")}active#{/if}">
                         <a href="@{backoffice.Comptes.index()}">
                             <i class="fa fa-users"></i> <span>Comptes</span> <small class="label pull-right bg-green"></small>
                         </a>
                     </li>
                 #{/if}
-
-
-                #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
-                <li class="treeview #{if request.action.contains("CMS") || request.action.contains("Fragments")}active#{/if}">
-                    <a href="#">
-                        <i class="fa fa-file"></i>
-                        <span>CMS</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="@{backoffice.CMS.index()}"><i class="fa fa-circle-o"></i> Pages éditables</a></li>
-                        <li><a href="@{backoffice.Fragments.index()}"><i class="fa fa-circle-o"></i> Fragments</a></li>
-                    </ul>
-                </li>
-                #{/if}
-
-                #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
-                    <li class="#{if request.action.contains("Sliders")}active#{/if}">
-                        <a href="@{backoffice.Sliders.index()}">
-                            <i class="fa fa-picture-o"></i> <span>Slider accueil</span> <small class="label pull-right bg-green"></small>
-                        </a>
-                    </li>
-                #{/if}
-
-            #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
-                <li class="#{if request.action.contains("Evenements")}active#{/if}">
-                    <a href="@{backoffice.Evenements.index()}">
-                        <i class="fa fa-calendar-o"></i> <span>Evénements</span> <small class="label pull-right bg-green"></small>
-                    </a>
-                </li>
-            #{/if}
-
-            #{if compteConnecte.groupe.equals(models.Compte.Groupe.ADMINISTRATEUR)}
-                <li class="#{if request.action.contains("MailingLists")}active#{/if}">
-                    <a href="@{backoffice.MailingLists.index()}">
-                        <i class="fa fa-envelope-o "></i> <span>Mailing Lists</span> <small class="label pull-right bg-green"></small>
-                    </a>
-                </li>
-            #{/if}
-
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -217,6 +238,13 @@
         $(".datemask").inputmask("99/99/9999 99:99", {"placeholder": "dd/mm/yyyy HH:mm"});
         $('.summernote').summernote({
             height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+
+        $('.summernote-lg').summernote({
+            height: 700,                 // set editor height
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
             focus: true                  // set focus to editable area after initializing summernote

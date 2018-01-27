@@ -1,0 +1,44 @@
+#{extends 'backoffice/basePageBackoffice.html' /}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cercles
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@{backoffice.Dashboard.index()}"><i class="fa fa-dashboard"></i>L'archipel Citoyen</a></li>
+        <li class="active"><a href="@{backoffice.Cercles.creerCercle()}"><i class="fa fa-plus"></i>Création d'un nouveau cercle</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Création d'un nouveau cercle</h3>
+
+                </div>
+                <form class="form-horizontal" action="@{backoffice.Cercles.creerCerclePost()}" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nom" class="col-sm-2 control-label">Nom</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="${flash.nom}">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
