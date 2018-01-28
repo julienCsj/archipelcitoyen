@@ -38,7 +38,7 @@
                 <h4>Publications du cercle</h4>
                 #{list items:articles, as:'article'}
                     <div class="card" style="margin-bottom:20px;">
-                        <img class="card-img-top" style="height:300px;" src="#{if article.couverture}${article.couverture?.url}#{/if}#{else}http://placehold.it/750x300#{/else}" alt="Card image cap">
+                    #{if article.couverture}<img class="card-img-top" style="height:300px;" src="#{if article.couverture}${article.couverture?.url}#{/if}#{else}http://placehold.it/750x300#{/else}" alt="Card image cap">#{/if}
                         <div class="card-body">
                             <h2 class="card-title">${article.titre}</h2>
                             <p class="card-text">${article.introduction}</p>
