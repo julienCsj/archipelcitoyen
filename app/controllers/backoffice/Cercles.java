@@ -274,7 +274,7 @@ public class Cercles extends SecureController {
         render(cercle, fichiers);
     }
 
-    public static void lireCercleDocumentsAjouterPost(Long idCercle, String nom, File fichier) {
+    public static void lireCercleDocumentsAjouterPost(Long idCercle, String nom, File fichier, boolean afficherFront) {
         Cercle cercle = Cercle.findById(idCercle);
         Compte compte = getCompte();
         Fichier fichierSurS3 = new S3FileUploadService(compte)
@@ -284,6 +284,7 @@ public class Cercles extends SecureController {
                 .upload();
 
         fichierSurS3.cercle = cercle;
+        fichierSurS3.afficherFront = afficherFront;
 
         if(fichierSurS3 != null) {
             fichierSurS3.save();

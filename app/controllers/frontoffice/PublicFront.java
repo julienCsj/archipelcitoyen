@@ -101,7 +101,7 @@ public class PublicFront extends FrontController {
         notFoundIfNull(slug);
         Cercle cercle = Cercle.find("slug = ?", slug).first();
         List<Article> articles = Article.find("cercle = ? order by dateCreation DESC", cercle).fetch();
-        List<Fichier> fichiers = Fichier.find("cercle = ?", cercle).fetch();
+        List<Fichier> fichiers = Fichier.find("cercle = ? and afficherFront = true", cercle).fetch();
         render(cercle, articles, fichiers);
 
     }

@@ -31,8 +31,12 @@ public class Fichier extends Model {
     @JoinColumn(updatable = true, nullable = true)
     public Compte compte;
 
+    @Column
+    public Boolean afficherFront;
+
 
     public Fichier() {
+        this.afficherFront = false;
         this.dateCreation = new Date();
     }
 
