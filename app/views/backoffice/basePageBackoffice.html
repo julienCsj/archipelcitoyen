@@ -147,6 +147,13 @@
                             <li><a href="@{backoffice.Cercles.creerCercle()}"><i class="fa fa-plus"></i> Créer un cercle</a></li>
                         </ul>
                     </li>
+
+                    <li class="#{if request.action.contains("Adherents")}active#{/if}">
+                        <a href="@{backoffice.Adherents.index()}">
+                            <i class="fa fa-user-plus"></i> <span>Adhérents</span> <small class="label pull-right bg-green"></small>
+                        </a>
+                    </li>
+
                 #{/if}
 
                 #{if compteConnecte.groupe.equals(models.Compte.Groupe.SUPER_ADMINISTRATEUR)}

@@ -11,3 +11,15 @@ lib/
 .idea/vcs.xml
 .idea/workspace.xml
 .idea/copyright/profiles_settings.xml
+eclipse/archipel.launch
+eclipse/Test archipel.launch
+eclipse/Connect JPDA to archipel.launch
+eclipse/.settings/org.eclipse.jdt.core.prefs
+eclipse/.settings/org.eclipse.core.resources.prefs
+eclipse/.project
+eclipse/.gitignore
+eclipse/.classpath
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.core.resources.prefs
+.classpath
+.project

@@ -10,6 +10,9 @@ POST    /inscription-newsletter                     frontoffice.PublicFront.insc
 GET     /pressbook                                  frontoffice.PublicFront.pressbook
 GET     /cercles/{slug}                              frontoffice.PublicFront.afficherCercle
 GET     /cercles/{slugCercle}/article/{slugArticle}  frontoffice.PublicFront.afficherArticle
+GET     /adherer-donner                              frontoffice.PublicFront.adhererDonner
+GET     /adherer                                     frontoffice.PublicFront.adherer
+POST    /adherer-2                                   frontoffice.PublicFront.adherer2
 
 # Backoffice
 GET     /backoffice                             backoffice.Dashboard.index

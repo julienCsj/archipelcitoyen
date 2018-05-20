@@ -61,8 +61,8 @@ public class Adherent extends Model {
         public String traductionLongue;
         public String traductionCourte;
 
-        Groupe(String traductionL, String traductionC) {
-            this.traductionLongue = traductionLongue;
+        Civilite(String traductionL, String traductionC) {
+            this.traductionLongue = traductionL;
             this.traductionCourte = traductionC;
         }
     }

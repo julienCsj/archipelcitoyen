@@ -1,0 +1,66 @@
+#{extends 'frontoffice/basePageFrontoffice.html'/}
+
+
+<div style="height:400px; background-image: url('https://s3.eu-west-3.amazonaws.com/archipel-citoyen/STATIQUE/toits_ville-de-toulouse.jpg'); background-size: cover;">
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-1 hidden-xs"></div>
+            <div class="col-xs-12 col-sm-8">
+                <br>
+                <br>
+                <h1 class="text-bold"  style=" font-weight: bolder; font-size: 36px; color: white !important;"> Adhérer au mouvement </h1>
+                <div class="lead"  style="font-size: 24px; color: white !important;;">
+                    <p>Partie 2 : Effectuer un don sur le site de la Relève Citoyenne</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+
+<div class="container" style="padding-top:40px; padding-bottom: 40px;">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            #{ifErrors}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Erreur(s) :</strong>
+                <ul>
+                    #{errors}
+                    <li>${error}</li>
+                    #{/errors}
+                </ul>
+            </div>
+            #{/ifErrors}
+
+
+            <div class="text-center">
+
+                <h3 class="text-success"> <i class="fa fa-check"></i> Pré-adhésion validée</h3>
+                <h5>Votre adhésion sera finalisée lorsque La Relève Citoyenne nous confirmera votre don, d'un montant minimum de 2€</h5>
+
+            </div>
+
+            <p><br><br>Pour rappel :
+            <ul>
+                <li>Indiquer un prix libre d’un montant supérieur à 2 euros, en accord avec la définition de l’adhésion élaborée en commun</li>
+                <li>Cocher « Je souhaite que mon don serve prioritairement à soutenir les initiatives locales portées par les membres de La Relève Citoyenne »
+                    et préciser « Archipel Citoyen » dans le champ libre (nota : la case n’est pas obligatoire mais
+                    conseillées sachant que tous les dons dont les codes postaux seront liés à la
+                    Métropole seront fléchés vers nous). Comme mis ci-dessous, si vous cochez cette case, 100% de votre financement ira à l’Archipel Citoyen
+                </li>
+            </ul>
+            </p>
+
+            <div class="text-center">
+                <a class="btn btn-success" href="http://dons.relevecitoyenne.org/">Poursuivre sur le site de La Relève Citoyenne</a>
+            </div>
+
+        </div>
+    </div>
+</div>

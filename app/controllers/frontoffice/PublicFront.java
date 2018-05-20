@@ -1,7 +1,9 @@
 package controllers.frontoffice;
 
 import models.*;
+import play.data.validation.Required;
 import play.data.validation.Validation;
+import play.db.jpa.JPABase;
 import play.mvc.Controller;
 import services.mailchimp.MailchimpConnector;
 import services.mailchimp.MailchimpList;
@@ -117,4 +119,61 @@ public class PublicFront extends FrontController {
 
     }
 
+    public static void adhererDonner() {
+        render();
+    }
+    public static void adherer() {
+        render();
+    }
+
+    public static void adherer2(Adherent.Civilite civilite, String nom, String prenom, String adresse, String codePostal, String pays, String ville, String email, String telephone, String mandat, boolean newsletter) {
+
+        if(civilite == null) Validation.addError("civilite", "Merci de renseigner une civilité");
+        if(nom == null || nom.isEmpty()) Validation.addError("nom", "Merci de renseigner un nom");
+        if(prenom == null || prenom.isEmpty()) Validation.addError("prenom", "Merci de renseigner un prenom");
+        if(codePostal == null || codePostal.isEmpty()) Validation.addError("codePostal", "Merci de renseigner un code postal");
+        if(ville == null || ville.isEmpty()) Validation.addError("ville", "Merci de renseigner une ville");
+        if(email == null || email.isEmpty()) Validation.addError("email", "Merci de renseigner un email");
+        if(pays == null || pays.isEmpty()) Validation.addError("pays", "Merci de renseigner un pays");
+
+        if(Validation.hasErrors()) {
+            Validation.keep();
+            params.flash();
+            flash.keep();
+            adherer();
+        } else {
+
+            if (Adherent.count("email = ?", email) > 0) {
+                Validation.keep();
+                params.flash();
+                flash.keep();
+                flash.error("Un adhérent existe déjà avec cet adresse email. Veuillez vérifier que bous n'êtes pas déjà adhérent ou utiliser une autre adresse email.");
+                adherer();
+            }
+
+            Adherent adherent = new Adherent();
+            adherent.civilite = civilite;
+            adherent.nom = nom;
+            adherent.prenom = prenom;
+            adherent.adresse = adresse;
+            adherent.codePostal = codePostal;
+            adherent.ville = ville;
+            adherent.pays = pays;
+            adherent.email = email;
+            adherent.telephone = telephone;
+            adherent.mandat = mandat;
+            adherent.save();
+
+            if(newsletter) {
+                MailchimpConnector mc = new MailchimpConnector();
+                if(!mc.isMemberOfList(MailchimpList.ARCHIPEL_CITOYEN, email)) {
+                    boolean res = mc.addMember(MailchimpList.ARCHIPEL_CITOYEN, email, nom, prenom);
+                } else {
+                    flash.error("Vous êtes déjà inscrit à notre newsletter !");
+                }
+            }
+
+            render(adherent, newsletter);
+        }
+    }
 }
